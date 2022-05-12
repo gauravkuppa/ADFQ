@@ -65,16 +65,17 @@ class Logger():
 
     def log_epoch(self, act, **kwargs):
         test_reward, mean_nlogdetcov = self.eval_f(act)
+        for i in range(len(test_reward)):
+            wandb.log({"test_reward":test_reward[i]}) # why is this an array tho
+            wandb.log({"mean_nlogdetcov":mean_nlogdetcov[i]})
         for (k,v) in self.records.items():
             if k == 'online_reward':
                 if len(self.ep_history['ep_rewards']) > 1:
                     v.append(round(np.mean(self.ep_history['ep_rewards'][-101:-1]),1))
             elif k == 'test_reward':
                 v.append(test_reward)
-                wandb.log({k:v[-1]})
             elif k == 'mean_nlogdetcov':
                 v.append(mean_nlogdetcov)
-                wandb.log({k:v[-1]})
             elif k == 'time_spent':
                 v.append(time.time() - self.s_time)
                 wandb.log({k:v[-1]})

@@ -58,9 +58,11 @@ WORKDIR /home
 
 # update pip
 #RUN python3.6 -m pip install pip --upgrade
-#RUN python3.6 -m pip install wheel
+#RUN python3.6 -m 
+#pip install wheel
 
-#RUN python3.6 -m pip install tensorflow-gpu pyyaml scipy numpy tabulate matplotlib
-#RUN python3.6 -m pip install gym[atari,classic_control] tqdm joblib zmq dill progressbar2 mpi4py cloudpickle click opencv-python
-
+#RUN python3.6 -m 
+#pip install pyyaml scipy numpy tabulate matplotlib gym[atari,classic_control] tqdm joblib zmq dill progressbar2 mpi4py cloudpickle click opencv-python wandb
+#RUN python3.6 -m 
+#pip install 
 #WORKDIR /tmp/
