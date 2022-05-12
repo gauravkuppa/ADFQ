@@ -41,7 +41,7 @@ parser.add_argument('--eps_min', type=float, default=.02)
 parser.add_argument('--test_eps', type=float, default=.05)
 parser.add_argument('--init_mean', type =float, default=1.)
 parser.add_argument('--init_sd', type=float, default=10.)
-parser.add_argument('--device', type=str, default='/cpu:0')
+parser.add_argument('--device', type=str, default='0')
 parser.add_argument('--gpu_memory',type=float, default=1.0)
 parser.add_argument('--alg', choices=['adfq','adfq-v2'], default='adfq')
 parser.add_argument('--act_policy', choices=['egreedy','bayesian'], default='bayesian') # egreedy or thompson sampling (bayesian)
@@ -75,7 +75,7 @@ def train(seed, save_dir):
                     num_targets=args.nb_targets,
                     im_size=args.im_size,
                     )
-    with tf.device(args.device):
+    with tf.device("/gpu:" + args.device):
         with tf.compat.v1.variable_scope('seed_%d'%seed):
             hiddens = args.hiddens.split(':')
             hiddens = [int(h) for h in hiddens]

@@ -41,7 +41,7 @@ parser.add_argument('--log_fname', type=str, default='model.pkl')
 parser.add_argument('--eps_fraction', type=float, default=0.1)
 parser.add_argument('--eps_min', type=float, default=.02)
 parser.add_argument('--test_eps', type=float, default=.05)
-parser.add_argument('--device', type=str, default='/gpu:0')
+parser.add_argument('--device', type=str, default='0')
 parser.add_argument('--record',type=int, default=0)
 parser.add_argument('--render', type=int, default=0)
 parser.add_argument('--gpu_memory',type=float, default=1.0)
@@ -73,7 +73,7 @@ def train(seed, save_dir):
                     im_size=args.im_size,
                     )
 
-    with tf.device(args.device):
+    with tf.device("/gpu:" + args.device):
         with tf.compat.v1.variable_scope('seed_%d'%seed):
             hiddens = args.hiddens.split(':')
             hiddens = [int(h) for h in hiddens]
