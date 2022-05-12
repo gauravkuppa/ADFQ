@@ -72,6 +72,7 @@ class Logger():
             if k == 'online_reward':
                 if len(self.ep_history['ep_rewards']) > 1:
                     v.append(round(np.mean(self.ep_history['ep_rewards'][-101:-1]),1))
+                    wandb.log({k:v[-1]})
             elif k == 'test_reward':
                 v.append(test_reward)
             elif k == 'mean_nlogdetcov':
