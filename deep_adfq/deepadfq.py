@@ -9,6 +9,7 @@ import tensorflow as tf
 import zipfile
 import cloudpickle
 import numpy as np
+from tqdm import tqdm
 
 import build_graph
 import models
@@ -295,7 +296,7 @@ def learn(env,
         checkpt_loss = []
         eval_logger.log_epoch(act_test)
 
-        for t in range(init_t,max_timesteps):
+        for t in tqdm(range(init_t,max_timesteps)):
             if callback is not None and callback(locals(), globals()):
                 break
             # Take action and update exploration to the newest value

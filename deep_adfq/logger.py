@@ -5,6 +5,7 @@ import pickle, os, time
 import numpy as np
 from tabulate import tabulate
 import envs
+import wandb
 
 class Logger():
     def __init__(self, env_id, env_type, variables=None, save_dir=".",
@@ -44,12 +45,14 @@ class Logger():
 
     def log_reward(self, reward):
         self.ep_history['ep_rewards'][-1] += reward
+        wandb.log({'reward':reward})
 
     def log_step(self, **kwargs):
         for (k,v) in kwargs.items():
             if not(k in self.step_history):
                 raise KeyError("No key exists - %s"%k)
             self.step_history[k].append(v)
+            wandb.log({k:v})
 
     def log_ep(self, info=None):
         if ((self.env_type=='atari') and (info['ale.lives'] == 0)) or not(self.env_type=='atari'):
@@ -68,10 +71,13 @@ class Logger():
                     v.append(round(np.mean(self.ep_history['ep_rewards'][-101:-1]),1))
             elif k == 'test_reward':
                 v.append(test_reward)
+                wandb.log({k:v[-1]})
             elif k == 'mean_nlogdetcov':
                 v.append(mean_nlogdetcov)
+                wandb.log({k:v[-1]})
             elif k == 'time_spent':
                 v.append(time.time() - self.s_time)
+                wandb.log({k:v[-1]})
                 self.s_time = time.time()
             else:
                 if self.ep_history[k]:

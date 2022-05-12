@@ -7,6 +7,8 @@ import models
 import numpy as np
 import tensorflow as tf
 import datetime, json, os, argparse, time, pickle
+from tqdm import tqdm
+import wandb
 
 import deepadfq
 from logger import Logger, batch_plot
@@ -200,6 +202,8 @@ def test():
 
 if __name__ == '__main__':
     if args.mode == 'train':
+        wandb.init(project="deep_adfq_tracking", entity="gakuppa")
+        wandb.config = vars(args)
         save_dir = os.path.join(args.log_dir, '_'.join([args.env, datetime.datetime.now().strftime("%m%d%H%M")]))
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)

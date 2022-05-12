@@ -10,6 +10,8 @@ import numpy as np
 
 from baselines0.common import set_global_seeds
 from baselines0 import deepq
+from tqdm import tqdm
+import wandb
 
 import envs
 from deep_adfq.logger import Logger
@@ -51,6 +53,7 @@ parser.add_argument('--map', type=str, default="emptySmall")
 parser.add_argument('--nb_targets', type=int, default=1)
 parser.add_argument('--eval_type', choices=['random', 'random_zone', 'fixed'], default='random')
 parser.add_argument('--init_file_path', type=str, default=".")
+parser.add_argument('--im_size', type=int, default=50)
 
 args = parser.parse_args()
 
@@ -151,8 +154,8 @@ def test():
         import pickle
         given_init_pose = pickle.load(open(args.init_file_path, "rb"))
 
-    while(ep < args.nb_test_steps): # test episode
-        ep += 1
+    #while(ep < args.nb_test_steps): # test episode
+    for ep in range(arg.nb_test_steps): # test episode
         episode_rew, nlogdetcov = 0, 0
         obs, done = env.reset(init_pose_list=given_init_pose), False
         test_init_pose.append({'agent':timelimit_env.env.agent.state,
@@ -185,6 +188,8 @@ def test():
 
 if __name__ == '__main__':
     if args.mode == 'train':
+        wandb.init(project="deep_adfq_tracking", entity="gakuppa")
+        wandb.config = vars(args)
         save_dir = os.path.join(args.log_dir, '_'.join([args.env, datetime.datetime.now().strftime("%m%d%H%M")]))
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
