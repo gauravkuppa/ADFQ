@@ -62,7 +62,11 @@ WORKDIR /home
 #pip install wheel
 
 #RUN python3.6 -m 
-#pip install pyyaml scipy numpy tabulate matplotlib gym[atari,classic_control] tqdm joblib zmq dill progressbar2 mpi4py cloudpickle click opencv-python wandb
+#source setup
+
+#pip install pyyaml==5.4.1 scipy numpy tabulate matplotlib gym[atari,classic_control] tqdm joblib zmq dill progressbar2 mpi4py cloudpickle click opencv-python wandb filterpy scikit-image
+#export MPLBACKEND=TKAgg
+
 #RUN python3.6 -m 
 #pip install 
 #WORKDIR /tmp/
