@@ -188,8 +188,8 @@ def test():
 
 if __name__ == '__main__':
     if args.mode == 'train':
-        wandb.init(project="q_learning_tracking", entity="gakuppa")
-        wandb.config.update(vars(args))
+        wandb.init(project="deep_adfq_tracking", entity="gakuppa")
+        wandb.config.update(args)
         save_dir = os.path.join(args.log_dir, '_'.join([args.env, datetime.datetime.now().strftime("%m%d%H%M")]))
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
