@@ -138,7 +138,7 @@ def train(seed, save_dir):
         env.moviewriter.finish()
 
 def test():
-    learning_prop = json.load(open(glob(os.path.join(args.log_dir, '**/learning_prop.json')[0]),'r'))
+    learning_prop = json.load(open(glob(os.path.join(args.log_dir, '**/learning_prop.json'))[0],'r'))
     env = envs.make(args.env,
                     'target_tracking',
                     render=bool(args.render),
