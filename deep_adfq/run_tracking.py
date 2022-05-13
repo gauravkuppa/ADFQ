@@ -154,7 +154,7 @@ def test():
     while( not hasattr(timelimit_env, '_elapsed_steps')):
         timelimit_env = timelimit_env.env
     act_params = {'scope': "seed_%d"%learning_prop['seed']+"/"+learning_prop['scope'], 'eps': args.test_eps}
-    act = deepadfq.load(glob(os.path.join(args.log_dir, '**', act_params['scope'], args.log_fname))[0], act_params))
+    act = deepadfq.load(glob(os.path.join(args.log_dir, '**', act_params['scope'], args.log_fname))[0], act_params)
 
     if args.ros_log:
         from envs.target_tracking.ros_wrapper import RosLog
