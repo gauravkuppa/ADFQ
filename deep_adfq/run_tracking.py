@@ -9,6 +9,7 @@ import tensorflow as tf
 import datetime, json, os, argparse, time, pickle
 from tqdm import tqdm
 import wandb
+from glob import glob
 
 import deepadfq
 from logger import Logger, batch_plot
@@ -137,7 +138,7 @@ def train(seed, save_dir):
         env.moviewriter.finish()
 
 def test():
-    learning_prop = json.load(open(os.path.join(args.log_dir, '../learning_prop.json'),'r'))
+    learning_prop = json.load(open(glob(os.path.join(args.log_dir, '**/learning_prop.json')[0]),'r'))
     env = envs.make(args.env,
                     'target_tracking',
                     render=bool(args.render),
