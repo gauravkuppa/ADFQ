@@ -139,7 +139,7 @@ def train(seed, save_dir):
 
 def test():
     learning_prop = json.load(open(glob(os.path.join(args.log_dir, '**/learning_prop.json'))[0],'r'))
-    env = envs.make(args.env,
+    env = envs.make(args.env,x
                     'target_tracking',
                     render=bool(args.render),
                     record=bool(args.record),
@@ -154,7 +154,7 @@ def test():
     while( not hasattr(timelimit_env, '_elapsed_steps')):
         timelimit_env = timelimit_env.env
     act_params = {'scope': "seed_%d"%learning_prop['seed']+"/"+learning_prop['scope'], 'eps': args.test_eps}
-    act = deepadfq.load(os.path.join(args.log_dir, args.log_fname), act_params)
+    act = deepadfq.load(glob(os.path.join(args.log_dir, '**', act_params['scope'], args.log_fname))[0], act_params))
 
     if args.ros_log:
         from envs.target_tracking.ros_wrapper import RosLog
