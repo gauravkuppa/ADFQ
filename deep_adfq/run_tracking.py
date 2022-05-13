@@ -139,7 +139,7 @@ def train(seed, save_dir):
 
 def test():
     learning_prop = json.load(open(glob(os.path.join(args.log_dir, '**/learning_prop.json'))[0],'r'))
-    env = envs.make(args.env,x
+    env = envs.make(args.env,
                     'target_tracking',
                     render=bool(args.render),
                     record=bool(args.record),
